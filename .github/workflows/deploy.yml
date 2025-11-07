@@ -26,6 +26,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Generate build info
+        run: |
+          cat > build-info.json << EOF
+          {
+            "timestamp": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+            "date": "$(date -u +"%B %d, %Y at %H:%M UTC")",
+            "commit": "${{ github.sha }}",
+            "commitShort": "${GITHUB_SHA::7}",
+            "branch": "${{ github.ref_name }}",
+            "runNumber": "${{ github.run_number }}"
+          }
+          EOF
+          cat build-info.json
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 

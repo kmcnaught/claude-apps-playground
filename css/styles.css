@@ -501,6 +501,16 @@ footer {
     margin-top: var(--spacing-2xl);
 }
 
+.build-info {
+    margin-top: var(--spacing-md);
+    opacity: 0.7;
+    font-family: monospace;
+}
+
+.build-info small {
+    font-size: 0.75rem;
+}
+
 /* Responsive Design */
 @media (min-width: 640px) {
     .location-inputs {

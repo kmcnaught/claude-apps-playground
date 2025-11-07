@@ -29,6 +29,28 @@ class PlantingCalendarApp {
 
         // Auto-detect location on page load
         this.autoDetectLocation();
+
+        // Load and display build info
+        this.loadBuildInfo();
+    }
+
+    async loadBuildInfo() {
+        try {
+            const response = await fetch('build-info.json');
+            const buildInfo = await response.json();
+
+            const buildInfoEl = document.getElementById('build-info');
+            buildInfoEl.innerHTML = `
+                <small>
+                    Last deployed: ${buildInfo.date}
+                    <span style="opacity: 0.6;">| Build #${buildInfo.runNumber} | ${buildInfo.commitShort}</span>
+                </small>
+            `;
+        } catch (error) {
+            // Build info not available (local dev or error)
+            const buildInfoEl = document.getElementById('build-info');
+            buildInfoEl.innerHTML = '<small>Development version</small>';
+        }
     }
 
     async loadCitiesData() {
