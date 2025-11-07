@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Planting Calendar - Plan Your Garden</title>
+    <meta name="description" content="Create a personalized planting calendar for your vegetable garden based on your location and crop preferences.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/print.css" media="print">
+</head>
+<body>
+    <header>
+        <h1>Custom Planting Calendar</h1>
+        <p class="tagline">Plan your perfect vegetable garden</p>
+    </header>
+
+    <main id="app">
+        <!-- Step 1: Location Selection -->
+        <section id="location-section" class="card">
+            <h2>Step 1: Choose Your Location</h2>
+            <p class="instructions">Enter your ZIP code or use your current location to determine your planting zone.</p>
+
+            <div class="location-inputs">
+                <div class="form-group">
+                    <label for="zipcode">ZIP Code:</label>
+                    <input
+                        type="text"
+                        id="zipcode"
+                        name="zipcode"
+                        placeholder="e.g., 20001"
+                        pattern="[0-9]{5}"
+                        maxlength="5"
+                        aria-describedby="zipcode-help"
+                    >
+                    <span id="zipcode-help" class="help-text">Enter a 5-digit US ZIP code</span>
+                </div>
+
+                <button
+                    type="button"
+                    id="use-location-btn"
+                    class="btn btn-secondary"
+                    aria-label="Use my current location to detect planting zone"
+                >
+                    📍 Use Current Location
+                </button>
+            </div>
+
+            <div id="zone-result" class="zone-result" role="status" aria-live="polite"></div>
+
+            <button
+                type="button"
+                id="confirm-location-btn"
+                class="btn btn-primary"
+                disabled
+            >
+                Continue to Crop Selection
+            </button>
+        </section>
+
+        <!-- Step 2: Crop Selection -->
+        <section id="crop-section" class="card" hidden>
+            <h2>Step 2: Select Your Crops</h2>
+            <p class="instructions">Choose the vegetables you want to grow. Popular crops are pre-selected.</p>
+
+            <div class="crop-controls">
+                <div class="form-group">
+                    <label for="crop-search">Search crops:</label>
+                    <input
+                        type="search"
+                        id="crop-search"
+                        placeholder="Type to filter..."
+                        aria-label="Search and filter crop list"
+                    >
+                </div>
+
+                <div class="selection-actions">
+                    <button type="button" id="select-all-btn" class="btn btn-small">Select All</button>
+                    <button type="button" id="deselect-all-btn" class="btn btn-small">Deselect All</button>
+                </div>
+            </div>
+
+            <fieldset id="crop-selection">
+                <legend>Available Crops for Your Zone</legend>
+                <div id="crop-list" class="crop-grid"></div>
+            </fieldset>
+
+            <div class="form-actions">
+                <button type="button" id="back-to-location-btn" class="btn btn-secondary">← Back</button>
+                <button type="button" id="generate-calendar-btn" class="btn btn-primary" disabled>
+                    Generate Calendar
+                </button>
+            </div>
+        </section>
+
+        <!-- Step 3: Calendar Display -->
+        <section id="calendar-section" class="card" hidden>
+            <h2>Your Custom Planting Calendar</h2>
+            <p class="instructions">Your personalized planting schedule for <span id="selected-zone"></span></p>
+
+            <div class="calendar-controls">
+                <fieldset>
+                    <legend>Choose Layout:</legend>
+                    <div class="layout-options">
+                        <label class="radio-label">
+                            <input type="radio" name="layout" value="monthly" checked>
+                            <span>📋 Monthly TODO List</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="layout" value="visual">
+                            <span>📅 Visual Calendar</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="layout" value="kids">
+                            <span>🎨 Kid-Friendly</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <div class="action-buttons">
+                    <button type="button" id="print-calendar-btn" class="btn btn-primary">
+                        🖨️ Print Calendar
+                    </button>
+                    <button type="button" id="start-over-btn" class="btn btn-secondary">
+                        Start Over
+                    </button>
+                </div>
+            </div>
+
+            <div id="calendar-output" class="calendar-output"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Data sourced from university extension services and gardening resources. Always consult local frost dates for your specific area.</p>
+    </footer>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

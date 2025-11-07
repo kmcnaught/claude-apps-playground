@@ -1,0 +1,57 @@
+{
+  "zones": {
+    "20001": { "zone": "7", "subzone": "a", "fullZone": "7a" },
+    "10001": { "zone": "7", "subzone": "a", "fullZone": "7a" },
+    "90001": { "zone": "10", "subzone": "a", "fullZone": "10a" },
+    "60601": { "zone": "6", "subzone": "a", "fullZone": "6a" },
+    "98101": { "zone": "8", "subzone": "b", "fullZone": "8b" },
+    "33101": { "zone": "10", "subzone": "b", "fullZone": "10b" },
+    "80201": { "zone": "5", "subzone": "b", "fullZone": "5b" },
+    "02101": { "zone": "6", "subzone": "b", "fullZone": "6b" },
+    "94101": { "zone": "10", "subzone": "a", "fullZone": "10a" },
+    "30301": { "zone": "8", "subzone": "a", "fullZone": "8a" },
+    "75201": { "zone": "8", "subzone": "a", "fullZone": "8a" },
+    "19101": { "zone": "7", "subzone": "a", "fullZone": "7a" },
+    "85001": { "zone": "9", "subzone": "b", "fullZone": "9b" },
+    "97201": { "zone": "8", "subzone": "b", "fullZone": "8b" },
+    "55401": { "zone": "5", "subzone": "a", "fullZone": "5a" }
+  },
+  "zoneInfo": {
+    "5": {
+      "description": "Cold climate with short growing season",
+      "avgFirstFrost": "Sep 30",
+      "avgLastFrost": "May 15",
+      "growingDays": 137
+    },
+    "6": {
+      "description": "Cool climate with moderate growing season",
+      "avgFirstFrost": "Oct 15",
+      "avgLastFrost": "May 1",
+      "growingDays": 167
+    },
+    "7": {
+      "description": "Temperate climate with good growing season",
+      "avgFirstFrost": "Oct 30",
+      "avgLastFrost": "Apr 15",
+      "growingDays": 198
+    },
+    "8": {
+      "description": "Warm climate with long growing season",
+      "avgFirstFrost": "Nov 15",
+      "avgLastFrost": "Apr 1",
+      "growingDays": 228
+    },
+    "9": {
+      "description": "Very warm climate with extended growing season",
+      "avgFirstFrost": "Dec 1",
+      "avgLastFrost": "Mar 15",
+      "growingDays": 261
+    },
+    "10": {
+      "description": "Tropical/subtropical climate with year-round growing",
+      "avgFirstFrost": "Rare/None",
+      "avgLastFrost": "Rare/None",
+      "growingDays": 365
+    }
+  }
+}

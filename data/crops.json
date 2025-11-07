@@ -1,0 +1,144 @@
+{
+  "crops": [
+    {
+      "id": "tomato",
+      "name": "Tomato",
+      "popularity": 1,
+      "category": "Fruiting Vegetables",
+      "zones": ["3", "4", "5", "6", "7", "8", "9", "10", "11"]
+    },
+    {
+      "id": "lettuce",
+      "name": "Lettuce",
+      "popularity": 2,
+      "category": "Leafy Greens",
+      "zones": ["2", "3", "4", "5", "6", "7", "8", "9", "10"]
+    },
+    {
+      "id": "carrot",
+      "name": "Carrot",
+      "popularity": 3,
+      "category": "Root Vegetables",
+      "zones": ["3", "4", "5", "6", "7", "8", "9", "10"]
+    },
+    {
+      "id": "pepper",
+      "name": "Pepper (Bell & Hot)",
+      "popularity": 4,
+      "category": "Fruiting Vegetables",
+      "zones": ["4", "5", "6", "7", "8", "9", "10", "11"]
+    },
+    {
+      "id": "cucumber",
+      "name": "Cucumber",
+      "popularity": 5,
+      "category": "Fruiting Vegetables",
+      "zones": ["4", "5", "6", "7", "8", "9", "10"]
+    },
+    {
+      "id": "bean",
+      "name": "Beans (Bush & Pole)",
+      "popularity": 6,
+      "category": "Legumes",
+      "zones": ["3", "4", "5", "6", "7", "8", "9", "10"]
+    },
+    {
+      "id": "zucchini",
+      "name": "Zucchini/Summer Squash",
+      "popularity": 7,
+      "category": "Fruiting Vegetables",
+      "zones": ["3", "4", "5", "6", "7", "8", "9", "10"]
+    },
+    {
+      "id": "pea",
+      "name": "Peas",
+      "popularity": 8,
+      "category": "Legumes",
+      "zones": ["2", "3", "4", "5", "6", "7", "8", "9"]
+    },
+    {
+      "id": "radish",
+      "name": "Radish",
+      "popularity": 9,
+      "category": "Root Vegetables",
+      "zones": ["2", "3", "4", "5", "6", "7", "8", "9", "10"]
+    },
+    {
+      "id": "spinach",
+      "name": "Spinach",
+      "popularity": 10,
+      "category": "Leafy Greens",
+      "zones": ["2", "3", "4", "5", "6", "7", "8", "9"]
+    },
+    {
+      "id": "broccoli",
+      "name": "Broccoli",
+      "popularity": 11,
+      "category": "Brassicas",
+      "zones": ["3", "4", "5", "6", "7", "8", "9"]
+    },
+    {
+      "id": "kale",
+      "name": "Kale",
+      "popularity": 12,
+      "category": "Leafy Greens",
+      "zones": ["2", "3", "4", "5", "6", "7", "8", "9"]
+    },
+    {
+      "id": "onion",
+      "name": "Onion",
+      "popularity": 13,
+      "category": "Alliums",
+      "zones": ["3", "4", "5", "6", "7", "8", "9"]
+    },
+    {
+      "id": "potato",
+      "name": "Potato",
+      "popularity": 14,
+      "category": "Root Vegetables",
+      "zones": ["3", "4", "5", "6", "7", "8", "9"]
+    },
+    {
+      "id": "beet",
+      "name": "Beet",
+      "popularity": 15,
+      "category": "Root Vegetables",
+      "zones": ["2", "3", "4", "5", "6", "7", "8", "9", "10"]
+    },
+    {
+      "id": "swiss-chard",
+      "name": "Swiss Chard",
+      "popularity": 16,
+      "category": "Leafy Greens",
+      "zones": ["3", "4", "5", "6", "7", "8", "9", "10"]
+    },
+    {
+      "id": "cabbage",
+      "name": "Cabbage",
+      "popularity": 17,
+      "category": "Brassicas",
+      "zones": ["3", "4", "5", "6", "7", "8", "9"]
+    },
+    {
+      "id": "corn",
+      "name": "Sweet Corn",
+      "popularity": 18,
+      "category": "Grains",
+      "zones": ["4", "5", "6", "7", "8", "9", "10"]
+    },
+    {
+      "id": "eggplant",
+      "name": "Eggplant",
+      "popularity": 19,
+      "category": "Fruiting Vegetables",
+      "zones": ["5", "6", "7", "8", "9", "10", "11"]
+    },
+    {
+      "id": "garlic",
+      "name": "Garlic",
+      "popularity": 20,
+      "category": "Alliums",
+      "zones": ["3", "4", "5", "6", "7", "8", "9"]
+    }
+  ]
+}

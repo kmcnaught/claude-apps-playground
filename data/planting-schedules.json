@@ -1,0 +1,324 @@
+{
+  "schedules": {
+    "tomato": {
+      "zones": {
+        "5": {
+          "startIndoors": { "start": "Mar 15", "end": "Apr 15" },
+          "transplantOutdoors": { "start": "May 15", "end": "Jun 15" },
+          "directSow": null,
+          "harvest": { "start": "Jul 20", "end": "Oct 1" },
+          "notes": "Plant after last frost (typically May 15)"
+        },
+        "6": {
+          "startIndoors": { "start": "Mar 1", "end": "Apr 1" },
+          "transplantOutdoors": { "start": "May 1", "end": "Jun 1" },
+          "directSow": null,
+          "harvest": { "start": "Jul 10", "end": "Oct 15" },
+          "notes": "Plant after last frost (typically May 1)"
+        },
+        "7": {
+          "startIndoors": { "start": "Feb 15", "end": "Mar 30" },
+          "transplantOutdoors": { "start": "Apr 15", "end": "May 30" },
+          "directSow": { "start": "May 1", "end": "Jun 15" },
+          "harvest": { "start": "Jul 1", "end": "Oct 30" },
+          "notes": "Plant after last frost (typically Apr 15)"
+        },
+        "8": {
+          "startIndoors": { "start": "Feb 1", "end": "Mar 15" },
+          "transplantOutdoors": { "start": "Apr 1", "end": "May 15" },
+          "directSow": { "start": "Apr 15", "end": "Jun 1" },
+          "harvest": { "start": "Jun 15", "end": "Nov 15" },
+          "notes": "Plant after last frost (typically Apr 1)"
+        }
+      }
+    },
+    "lettuce": {
+      "zones": {
+        "5": {
+          "startIndoors": { "start": "Mar 1", "end": "Apr 1" },
+          "transplantOutdoors": null,
+          "directSow": { "start": "Apr 1", "end": "May 15" },
+          "harvest": { "start": "May 15", "end": "Jul 1" },
+          "notes": "Cool season crop. Plant again in late summer for fall harvest"
+        },
+        "6": {
+          "startIndoors": { "start": "Feb 15", "end": "Mar 20" },
+          "transplantOutdoors": null,
+          "directSow": { "start": "Mar 15", "end": "May 1" },
+          "harvest": { "start": "May 1", "end": "Jun 20" },
+          "notes": "Cool season crop. Plant again in late summer for fall harvest"
+        },
+        "7": {
+          "startIndoors": { "start": "Feb 1", "end": "Mar 15" },
+          "transplantOutdoors": null,
+          "directSow": { "start": "Mar 1", "end": "Apr 30" },
+          "harvest": { "start": "Apr 15", "end": "Jun 15" },
+          "notes": "Cool season crop. Plant again Aug-Sep for fall harvest"
+        },
+        "8": {
+          "startIndoors": { "start": "Jan 15", "end": "Mar 1" },
+          "transplantOutdoors": null,
+          "directSow": { "start": "Feb 15", "end": "Apr 15" },
+          "harvest": { "start": "Apr 1", "end": "Jun 1" },
+          "notes": "Cool season crop. Plant again Aug-Oct for fall harvest"
+        }
+      }
+    },
+    "carrot": {
+      "zones": {
+        "5": {
+          "startIndoors": null,
+          "transplantOutdoors": null,
+          "directSow": { "start": "Apr 15", "end": "Jul 1" },
+          "harvest": { "start": "Jul 1", "end": "Oct 15" },
+          "notes": "Direct sow only. Thin seedlings to 2-3 inches apart"
+        },
+        "6": {
+          "startIndoors": null,
+          "transplantOutdoors": null,
+          "directSow": { "start": "Apr 1", "end": "Jul 15" },
+          "harvest": { "start": "Jun 15", "end": "Oct 30" },
+          "notes": "Direct sow only. Thin seedlings to 2-3 inches apart"
+        },
+        "7": {
+          "startIndoors": null,
+          "transplantOutdoors": null,
+          "directSow": { "start": "Mar 15", "end": "Aug 1" },
+          "harvest": { "start": "Jun 1", "end": "Nov 15" },
+          "notes": "Direct sow only. Thin seedlings to 2-3 inches apart"
+        },
+        "8": {
+          "startIndoors": null,
+          "transplantOutdoors": null,
+          "directSow": { "start": "Mar 1", "end": "Aug 15" },
+          "harvest": { "start": "May 15", "end": "Nov 30" },
+          "notes": "Direct sow only. Can plant year-round in mild areas"
+        }
+      }
+    },
+    "pepper": {
+      "zones": {
+        "5": {
+          "startIndoors": { "start": "Mar 1", "end": "Apr 1" },
+          "transplantOutdoors": { "start": "May 20", "end": "Jun 20" },
+          "directSow": null,
+          "harvest": { "start": "Jul 25", "end": "Oct 1" },
+          "notes": "Needs warm soil. Plant 2 weeks after tomatoes"
+        },
+        "6": {
+          "startIndoors": { "start": "Feb 15", "end": "Mar 20" },
+          "transplantOutdoors": { "start": "May 10", "end": "Jun 10" },
+          "directSow": null,
+          "harvest": { "start": "Jul 15", "end": "Oct 15" },
+          "notes": "Needs warm soil. Plant 2 weeks after tomatoes"
+        },
+        "7": {
+          "startIndoors": { "start": "Feb 1", "end": "Mar 15" },
+          "transplantOutdoors": { "start": "Apr 25", "end": "Jun 1" },
+          "directSow": null,
+          "harvest": { "start": "Jul 1", "end": "Nov 1" },
+          "notes": "Needs warm soil. Wait until soil is 65°F+"
+        },
+        "8": {
+          "startIndoors": { "start": "Jan 20", "end": "Mar 1" },
+          "transplantOutdoors": { "start": "Apr 10", "end": "May 20" },
+          "directSow": null,
+          "harvest": { "start": "Jun 20", "end": "Nov 15" },
+          "notes": "Needs warm soil. Wait until soil is 65°F+"
+        }
+      }
+    },
+    "cucumber": {
+      "zones": {
+        "5": {
+          "startIndoors": { "start": "Apr 15", "end": "May 15" },
+          "transplantOutdoors": null,
+          "directSow": { "start": "May 20", "end": "Jun 20" },
+          "harvest": { "start": "Jul 15", "end": "Sep 15" },
+          "notes": "Frost sensitive. Plant in warm soil"
+        },
+        "6": {
+          "startIndoors": { "start": "Apr 1", "end": "May 1" },
+          "transplantOutdoors": null,
+          "directSow": { "start": "May 10", "end": "Jun 15" },
+          "harvest": { "start": "Jul 1", "end": "Sep 30" },
+          "notes": "Frost sensitive. Plant in warm soil"
+        },
+        "7": {
+          "startIndoors": { "start": "Mar 20", "end": "Apr 20" },
+          "transplantOutdoors": null,
+          "directSow": { "start": "Apr 25", "end": "Jun 15" },
+          "harvest": { "start": "Jun 20", "end": "Oct 15" },
+          "notes": "Frost sensitive. Succession plant every 3 weeks"
+        },
+        "8": {
+          "startIndoors": { "start": "Mar 1", "end": "Apr 10" },
+          "transplantOutdoors": null,
+          "directSow": { "start": "Apr 10", "end": "Jun 30" },
+          "harvest": { "start": "Jun 1", "end": "Oct 30" },
+          "notes": "Can succession plant for continuous harvest"
+        }
+      }
+    },
+    "bean": {
+      "zones": {
+        "5": {
+          "startIndoors": null,
+          "transplantOutdoors": null,
+          "directSow": { "start": "May 20", "end": "Jul 1" },
+          "harvest": { "start": "Jul 15", "end": "Sep 30" },
+          "notes": "Direct sow after frost. Succession plant every 2 weeks"
+        },
+        "6": {
+          "startIndoors": null,
+          "transplantOutdoors": null,
+          "directSow": { "start": "May 10", "end": "Jul 15" },
+          "harvest": { "start": "Jul 1", "end": "Oct 15" },
+          "notes": "Direct sow after frost. Succession plant every 2 weeks"
+        },
+        "7": {
+          "startIndoors": null,
+          "transplantOutdoors": null,
+          "directSow": { "start": "Apr 25", "end": "Aug 1" },
+          "harvest": { "start": "Jun 20", "end": "Oct 30" },
+          "notes": "Direct sow after frost. Succession plant every 2 weeks"
+        },
+        "8": {
+          "startIndoors": null,
+          "transplantOutdoors": null,
+          "directSow": { "start": "Apr 10", "end": "Aug 15" },
+          "harvest": { "start": "Jun 1", "end": "Nov 15" },
+          "notes": "Direct sow after frost. Succession plant every 2 weeks"
+        }
+      }
+    },
+    "zucchini": {
+      "zones": {
+        "5": {
+          "startIndoors": { "start": "Apr 20", "end": "May 15" },
+          "transplantOutdoors": null,
+          "directSow": { "start": "May 25", "end": "Jun 20" },
+          "harvest": { "start": "Jul 20", "end": "Sep 30" },
+          "notes": "Frost sensitive. Very productive - 2-3 plants sufficient"
+        },
+        "6": {
+          "startIndoors": { "start": "Apr 10", "end": "May 1" },
+          "transplantOutdoors": null,
+          "directSow": { "start": "May 15", "end": "Jun 15" },
+          "harvest": { "start": "Jul 10", "end": "Oct 15" },
+          "notes": "Frost sensitive. Very productive - 2-3 plants sufficient"
+        },
+        "7": {
+          "startIndoors": { "start": "Mar 25", "end": "Apr 20" },
+          "transplantOutdoors": null,
+          "directSow": { "start": "Apr 30", "end": "Jun 15" },
+          "harvest": { "start": "Jun 25", "end": "Oct 30" },
+          "notes": "Frost sensitive. Harvest regularly to encourage production"
+        },
+        "8": {
+          "startIndoors": { "start": "Mar 10", "end": "Apr 10" },
+          "transplantOutdoors": null,
+          "directSow": { "start": "Apr 15", "end": "Jul 1" },
+          "harvest": { "start": "Jun 10", "end": "Nov 15" },
+          "notes": "Can succession plant for continuous harvest"
+        }
+      }
+    },
+    "pea": {
+      "zones": {
+        "5": {
+          "startIndoors": null,
+          "transplantOutdoors": null,
+          "directSow": { "start": "Apr 1", "end": "May 15" },
+          "harvest": { "start": "Jun 1", "end": "Jul 30" },
+          "notes": "Cool season crop. Plant as soon as soil can be worked"
+        },
+        "6": {
+          "startIndoors": null,
+          "transplantOutdoors": null,
+          "directSow": { "start": "Mar 15", "end": "May 1" },
+          "harvest": { "start": "May 20", "end": "Jul 15" },
+          "notes": "Cool season crop. Plant as soon as soil can be worked"
+        },
+        "7": {
+          "startIndoors": null,
+          "transplantOutdoors": null,
+          "directSow": { "start": "Mar 1", "end": "Apr 20" },
+          "harvest": { "start": "May 1", "end": "Jul 1" },
+          "notes": "Cool season crop. Plant fall crop in Aug-Sep"
+        },
+        "8": {
+          "startIndoors": null,
+          "transplantOutdoors": null,
+          "directSow": { "start": "Feb 15", "end": "Apr 10" },
+          "harvest": { "start": "Apr 20", "end": "Jun 20" },
+          "notes": "Cool season crop. Plant fall crop in Sep-Oct"
+        }
+      }
+    },
+    "radish": {
+      "zones": {
+        "5": {
+          "startIndoors": null,
+          "transplantOutdoors": null,
+          "directSow": { "start": "Apr 15", "end": "Sep 1" },
+          "harvest": { "start": "May 20", "end": "Oct 15" },
+          "notes": "Fast growing. Succession plant every 2 weeks"
+        },
+        "6": {
+          "startIndoors": null,
+          "transplantOutdoors": null,
+          "directSow": { "start": "Apr 1", "end": "Sep 15" },
+          "harvest": { "start": "May 1", "end": "Oct 30" },
+          "notes": "Fast growing. Succession plant every 2 weeks"
+        },
+        "7": {
+          "startIndoors": null,
+          "transplantOutdoors": null,
+          "directSow": { "start": "Mar 15", "end": "Oct 1" },
+          "harvest": { "start": "Apr 15", "end": "Nov 15" },
+          "notes": "Fast growing. Can plant spring and fall"
+        },
+        "8": {
+          "startIndoors": null,
+          "transplantOutdoors": null,
+          "directSow": { "start": "Mar 1", "end": "Oct 15" },
+          "harvest": { "start": "Apr 1", "end": "Nov 30" },
+          "notes": "Can plant nearly year-round in mild climates"
+        }
+      }
+    },
+    "spinach": {
+      "zones": {
+        "5": {
+          "startIndoors": { "start": "Mar 15", "end": "Apr 15" },
+          "transplantOutdoors": null,
+          "directSow": { "start": "Apr 1", "end": "May 15" },
+          "harvest": { "start": "May 15", "end": "Jun 30" },
+          "notes": "Cool season crop. Plant again in Aug for fall harvest"
+        },
+        "6": {
+          "startIndoors": { "start": "Mar 1", "end": "Apr 1" },
+          "transplantOutdoors": null,
+          "directSow": { "start": "Mar 15", "end": "May 1" },
+          "harvest": { "start": "May 1", "end": "Jun 20" },
+          "notes": "Cool season crop. Plant again in Aug-Sep for fall harvest"
+        },
+        "7": {
+          "startIndoors": { "start": "Feb 15", "end": "Mar 20" },
+          "transplantOutdoors": null,
+          "directSow": { "start": "Mar 1", "end": "Apr 30" },
+          "harvest": { "start": "Apr 15", "end": "Jun 15" },
+          "notes": "Bolts in heat. Plant again in Sep-Oct for fall/winter"
+        },
+        "8": {
+          "startIndoors": { "start": "Feb 1", "end": "Mar 10" },
+          "transplantOutdoors": null,
+          "directSow": { "start": "Feb 15", "end": "Apr 20" },
+          "harvest": { "start": "Apr 1", "end": "Jun 1" },
+          "notes": "Best in cool weather. Fall planting often more successful"
+        }
+      }
+    }
+  }
+}
