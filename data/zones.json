@@ -17,6 +17,12 @@
     "55401": { "zone": "5", "subzone": "a", "fullZone": "5a" }
   },
   "zoneInfo": {
+    "4": {
+      "description": "Very cold climate with very short growing season",
+      "avgFirstFrost": "Sep 15",
+      "avgLastFrost": "May 30",
+      "growingDays": 107
+    },
     "5": {
       "description": "Cold climate with short growing season",
       "avgFirstFrost": "Sep 30",
@@ -51,6 +57,18 @@
       "description": "Tropical/subtropical climate with year-round growing",
       "avgFirstFrost": "Rare/None",
       "avgLastFrost": "Rare/None",
+      "growingDays": 365
+    },
+    "11": {
+      "description": "Hot tropical climate with year-round growing",
+      "avgFirstFrost": "None",
+      "avgLastFrost": "None",
+      "growingDays": 365
+    },
+    "12": {
+      "description": "Very hot equatorial climate with year-round growing",
+      "avgFirstFrost": "None",
+      "avgLastFrost": "None",
       "growingDays": 365
     }
   }

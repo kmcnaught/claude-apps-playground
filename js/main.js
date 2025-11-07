@@ -172,14 +172,35 @@ class PlantingCalendarApp {
         });
     }
 
-    handleCitySelection(cityName) {
+    async handleCitySelection(cityName) {
         if (!this.citiesData || !cityName) return;
 
         const city = this.citiesData.cities.find(c => c.name === cityName);
-        if (city) {
-            // Populate ZIP code field and trigger zone detection
+        if (!city) return;
+
+        // Handle US cities with ZIP codes
+        if (city.zip) {
             document.getElementById('zipcode').value = city.zip;
             this.handleZipcodeEntry(city.zip);
+        }
+        // Handle international cities with direct zone specification
+        else if (city.zone) {
+            // Parse zone (e.g., "7a" -> zone: "7", subzone: "a")
+            const zoneMatch = city.zone.match(/^(\d+)([ab]?)$/);
+            if (zoneMatch) {
+                const zoneInfo = {
+                    zone: zoneMatch[1],
+                    subzone: zoneMatch[2] || '',
+                    fullZone: city.zone,
+                    city: city.name.split(',')[0], // Get city name without country
+                    region: city.country,
+                    method: 'city-select',
+                    isEstimate: false
+                };
+                this.currentZone = zoneInfo;
+                this.displayZoneInfo(zoneInfo);
+                document.getElementById('confirm-location-btn').disabled = false;
+            }
         }
     }
 
