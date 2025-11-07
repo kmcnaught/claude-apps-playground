@@ -17,56 +17,52 @@
     <main id="app">
         <!-- Step 1: Location Selection -->
         <section id="location-section" class="card">
-            <h2>Step 1: Choose Your Location</h2>
-            <p class="instructions">We've detected your approximate location. You can use it, enter a different ZIP code, or use precise location.</p>
+            <h2>Location</h2>
 
-            <div id="auto-detect-status" class="auto-detect-status" role="status" aria-live="polite">
+            <!-- Auto-detection status -->
+            <div id="auto-detect-status" class="location-detecting" role="status" aria-live="polite">
                 <span class="loading"></span> Detecting your location...
             </div>
 
-            <div id="zone-result" class="zone-result" role="status" aria-live="polite"></div>
+            <!-- Detected location display -->
+            <div id="detected-location" class="detected-location" hidden>
+                <p class="location-name" id="location-name"></p>
+                <button type="button" id="change-location-btn" class="btn-link">Change location</button>
+            </div>
 
-            <div class="location-inputs">
-                <div class="form-group">
-                    <label for="city-select">Or select a city:</label>
-                    <input
-                        type="text"
-                        id="city-select"
-                        name="city"
-                        list="cities-list"
-                        placeholder="Start typing a city name..."
-                        autocomplete="off"
-                        aria-describedby="city-help"
-                        aria-autocomplete="list"
-                        role="combobox"
-                        aria-expanded="false"
-                    >
-                    <datalist id="cities-list" role="listbox"></datalist>
-                    <span id="city-help" class="help-text">Select from 80+ cities worldwide</span>
-                </div>
-
-                <div class="form-group">
-                    <label for="zipcode">Or enter ZIP Code:</label>
-                    <input
-                        type="text"
-                        id="zipcode"
-                        name="zipcode"
-                        placeholder="e.g., 20001"
-                        pattern="[0-9]{5}"
-                        maxlength="5"
-                        aria-describedby="zipcode-help"
-                    >
-                    <span id="zipcode-help" class="help-text">Enter a 5-digit US ZIP code to override</span>
-                </div>
-
-                <button
-                    type="button"
-                    id="use-precise-location-btn"
-                    class="btn btn-secondary"
-                    aria-label="Use precise GPS location (requires permission)"
+            <!-- Location picker (hidden initially) -->
+            <div id="location-picker" class="location-picker" hidden>
+                <label for="location-input">Pick a location for your calendar:</label>
+                <input
+                    type="text"
+                    id="location-input"
+                    list="cities-list"
+                    placeholder="Type a city name or ZIP code..."
+                    autocomplete="off"
+                    aria-autocomplete="list"
+                    role="combobox"
+                    aria-expanded="false"
                 >
-                    🎯 Use Precise Location
-                </button>
+                <datalist id="cities-list" role="listbox"></datalist>
+                <p class="help-text">Search from 80+ cities worldwide or enter a US ZIP code</p>
+
+                <div class="picker-actions">
+                    <button type="button" id="use-precise-location-btn" class="btn btn-secondary">
+                        🎯 Use Precise GPS Location
+                    </button>
+                    <button type="button" id="cancel-change-btn" class="btn btn-secondary">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+
+            <!-- Zone info card -->
+            <div id="zone-info-card" class="zone-info-card" hidden>
+                <div class="zone-badge">
+                    <strong>Your Planting Zone:</strong>
+                    <span class="zone-number" id="zone-number"></span>
+                </div>
+                <p class="zone-description" id="zone-description"></p>
             </div>
 
             <button

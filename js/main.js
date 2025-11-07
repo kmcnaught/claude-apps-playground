@@ -82,38 +82,82 @@ class PlantingCalendarApp {
         try {
             const zoneInfo = await this.locationService.detectZoneFromIP();
             this.currentZone = zoneInfo;
-            this.displayZoneInfo(zoneInfo);
-
-            // Hide status, show result
-            statusDiv.classList.add('hidden');
+            this.showDetectedLocation(zoneInfo);
+            statusDiv.hidden = true;
             document.getElementById('confirm-location-btn').disabled = false;
         } catch (error) {
-            statusDiv.innerHTML = '⚠️ Could not auto-detect location. Please enter your ZIP code.';
-            statusDiv.style.backgroundColor = '#fff3cd';
-            statusDiv.style.color = '#856404';
+            // Show location picker if auto-detect fails
+            statusDiv.hidden = true;
+            this.showLocationPicker();
+        }
+    }
+
+    showDetectedLocation(zoneInfo) {
+        const detectedDiv = document.getElementById('detected-location');
+        const locationNameEl = document.getElementById('location-name');
+
+        let locationText = '';
+        if (zoneInfo.city && zoneInfo.region) {
+            locationText = `${zoneInfo.city}, ${zoneInfo.region}`;
+        } else if (zoneInfo.zipCode) {
+            locationText = `ZIP ${zoneInfo.zipCode}`;
+        }
+
+        const methodText = zoneInfo.method === 'ip' ? ' (from your IP address)' : '';
+        locationNameEl.textContent = locationText + methodText;
+
+        detectedDiv.hidden = false;
+        this.displayZoneInfo(zoneInfo);
+    }
+
+    showLocationPicker() {
+        document.getElementById('detected-location').hidden = true;
+        document.getElementById('location-picker').hidden = false;
+        document.getElementById('location-input').focus();
+    }
+
+    hideLocationPicker() {
+        document.getElementById('location-picker').hidden = true;
+        if (this.currentZone) {
+            this.showDetectedLocation(this.currentZone);
         }
     }
 
     setupEventListeners() {
         // Location section
-        const citySelect = document.getElementById('city-select');
-        const zipcodeInput = document.getElementById('zipcode');
+        const changeLocationBtn = document.getElementById('change-location-btn');
+        const cancelChangeBtn = document.getElementById('cancel-change-btn');
+        const locationInput = document.getElementById('location-input');
         const usePreciseLocationBtn = document.getElementById('use-precise-location-btn');
         const confirmLocationBtn = document.getElementById('confirm-location-btn');
 
-        citySelect.addEventListener('change', (e) => {
-            this.handleCitySelection(e.target.value);
+        changeLocationBtn.addEventListener('click', () => {
+            this.showLocationPicker();
         });
 
-        citySelect.addEventListener('input', (e) => {
+        cancelChangeBtn.addEventListener('click', () => {
+            this.hideLocationPicker();
+            locationInput.value = '';
+        });
+
+        // Handle both city selection and ZIP code entry
+        locationInput.addEventListener('input', (e) => {
+            const value = e.target.value.trim();
+
+            // Check if it's a ZIP code
+            if (/^\d{5}$/.test(value)) {
+                this.handleLocationInput(value, 'zip');
+            }
             // Update ARIA expanded state
-            e.target.setAttribute('aria-expanded', e.target.value.length > 0);
+            e.target.setAttribute('aria-expanded', value.length > 0);
         });
 
-        zipcodeInput.addEventListener('input', (e) => {
-            const zipcode = e.target.value;
-            if (zipcode.length === 5 && /^\d{5}$/.test(zipcode)) {
-                this.handleZipcodeEntry(zipcode);
+        locationInput.addEventListener('change', (e) => {
+            const value = e.target.value.trim();
+            // Check if it's a city from the list
+            const city = this.citiesData?.cities.find(c => c.name === value);
+            if (city) {
+                this.handleLocationInput(value, 'city');
             }
         });
 
@@ -172,63 +216,69 @@ class PlantingCalendarApp {
         });
     }
 
-    async handleCitySelection(cityName) {
-        if (!this.citiesData || !cityName) return;
+    async handleLocationInput(value, type) {
+        if (!value) return;
 
-        const city = this.citiesData.cities.find(c => c.name === cityName);
-        if (!city) return;
-
-        // Handle US cities with ZIP codes
-        if (city.zip) {
-            document.getElementById('zipcode').value = city.zip;
-            this.handleZipcodeEntry(city.zip);
-        }
-        // Handle international cities with direct zone specification
-        else if (city.zone) {
-            // Parse zone (e.g., "7a" -> zone: "7", subzone: "a")
-            const zoneMatch = city.zone.match(/^(\d+)([ab]?)$/);
-            if (zoneMatch) {
-                const zoneInfo = {
-                    zone: zoneMatch[1],
-                    subzone: zoneMatch[2] || '',
-                    fullZone: city.zone,
-                    city: city.name.split(',')[0], // Get city name without country
-                    region: city.country,
-                    method: 'city-select',
-                    isEstimate: false
-                };
+        if (type === 'zip') {
+            // Handle ZIP code
+            try {
+                const zoneInfo = await this.locationService.getZoneByZipCode(value);
                 this.currentZone = zoneInfo;
-                this.displayZoneInfo(zoneInfo);
+                this.hideLocationPicker();
+                this.showDetectedLocation(zoneInfo);
+                document.getElementById('confirm-location-btn').disabled = false;
+            } catch (error) {
+                console.error('Error with ZIP code:', error);
+            }
+        } else if (type === 'city') {
+            // Handle city selection
+            const city = this.citiesData.cities.find(c => c.name === value);
+            if (!city) return;
+
+            let zoneInfo;
+            if (city.zip) {
+                // US city with ZIP
+                zoneInfo = await this.locationService.getZoneByZipCode(city.zip);
+            } else if (city.zone) {
+                // International city with direct zone
+                const zoneMatch = city.zone.match(/^(\d+)([ab]?)$/);
+                if (zoneMatch) {
+                    zoneInfo = {
+                        zone: zoneMatch[1],
+                        subzone: zoneMatch[2] || '',
+                        fullZone: city.zone,
+                        city: city.name.split(',')[0],
+                        region: city.country,
+                        method: 'city-select',
+                        isEstimate: false
+                    };
+                }
+            }
+
+            if (zoneInfo) {
+                this.currentZone = zoneInfo;
+                this.hideLocationPicker();
+                this.showDetectedLocation(zoneInfo);
                 document.getElementById('confirm-location-btn').disabled = false;
             }
-        }
-    }
-
-    async handleZipcodeEntry(zipcode) {
-        try {
-            const zoneInfo = await this.locationService.getZoneByZipCode(zipcode);
-            this.currentZone = zoneInfo;
-            this.displayZoneInfo(zoneInfo);
-            document.getElementById('confirm-location-btn').disabled = false;
-        } catch (error) {
-            this.showError('Unable to determine planting zone for this ZIP code');
         }
     }
 
     async handleUsePreciseLocation() {
         const btn = document.getElementById('use-precise-location-btn');
         const originalText = btn.innerHTML;
-        btn.innerHTML = '<span class="loading"></span> Getting precise location...';
+        btn.innerHTML = '<span class="loading"></span> Getting location...';
         btn.disabled = true;
 
         try {
             const zoneInfo = await this.locationService.detectZoneFromPreciseLocation();
+            zoneInfo.method = 'gps';
             this.currentZone = zoneInfo;
-            this.displayZoneInfo(zoneInfo);
-            document.getElementById('zipcode').value = zoneInfo.zipCode;
+            this.hideLocationPicker();
+            this.showDetectedLocation(zoneInfo);
             document.getElementById('confirm-location-btn').disabled = false;
         } catch (error) {
-            this.showError(error.message);
+            alert(error.message);
         } finally {
             btn.innerHTML = originalText;
             btn.disabled = false;
@@ -236,53 +286,22 @@ class PlantingCalendarApp {
     }
 
     displayZoneInfo(zoneInfo) {
-        const zoneResult = document.getElementById('zone-result');
+        const zoneCard = document.getElementById('zone-info-card');
+        const zoneNumber = document.getElementById('zone-number');
+        const zoneDescription = document.getElementById('zone-description');
+
         const zoneDetails = this.locationService.getZoneDetails(zoneInfo.zone);
 
-        // Determine location description based on detection method
-        let locationDesc = '';
-        if (zoneInfo.city && zoneInfo.region) {
-            locationDesc = `${zoneInfo.city}, ${zoneInfo.region}`;
-        } else if (zoneInfo.zipCode) {
-            locationDesc = `ZIP ${zoneInfo.zipCode}`;
-        }
-
-        // Determine accuracy indicator
-        let accuracy = '';
-        if (zoneInfo.method === 'gps') {
-            accuracy = '✓ Precise location';
-        } else if (zoneInfo.method === 'ip') {
-            accuracy = '~ From your IP address';
-        } else if (zoneInfo.method === 'timezone') {
-            accuracy = '~ Approximate from timezone';
-        } else if (zoneInfo.isEstimate) {
-            accuracy = '~ Estimated';
-        }
-
-        let html = `
-            <strong>Your Planting Zone: ${zoneInfo.fullZone}</strong>
-            ${locationDesc ? `<br><small>${locationDesc}</small>` : ''}
-            ${accuracy ? `<br><small style="opacity: 0.8;">${accuracy}</small>` : ''}
-        `;
+        zoneNumber.textContent = zoneInfo.fullZone;
 
         if (zoneDetails) {
-            html += `
-                <div style="margin-top: 0.5rem; font-size: 0.9em;">
-                    ${zoneDetails.description}<br>
-                    Last Frost: ~${zoneDetails.avgLastFrost} | First Frost: ~${zoneDetails.avgFirstFrost}
-                </div>
+            zoneDescription.innerHTML = `
+                ${zoneDetails.description}<br>
+                Last Frost: ~${zoneDetails.avgLastFrost} | First Frost: ~${zoneDetails.avgFirstFrost}
             `;
         }
 
-        zoneResult.innerHTML = html;
-        zoneResult.classList.remove('error');
-        zoneResult.classList.add('success');
-    }
-
-    showError(message) {
-        const zoneResult = document.getElementById('zone-result');
-        zoneResult.innerHTML = `⚠️ ${message}`;
-        zoneResult.classList.add('error');
+        zoneCard.hidden = false;
     }
 
     showCropSelection() {
