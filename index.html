@@ -18,11 +18,35 @@
         <!-- Step 1: Location Selection -->
         <section id="location-section" class="card">
             <h2>Step 1: Choose Your Location</h2>
-            <p class="instructions">Enter your ZIP code or use your current location to determine your planting zone.</p>
+            <p class="instructions">We've detected your approximate location. You can use it, enter a different ZIP code, or use precise location.</p>
+
+            <div id="auto-detect-status" class="auto-detect-status" role="status" aria-live="polite">
+                <span class="loading"></span> Detecting your location...
+            </div>
+
+            <div id="zone-result" class="zone-result" role="status" aria-live="polite"></div>
 
             <div class="location-inputs">
                 <div class="form-group">
-                    <label for="zipcode">ZIP Code:</label>
+                    <label for="city-select">Or select a city:</label>
+                    <input
+                        type="text"
+                        id="city-select"
+                        name="city"
+                        list="cities-list"
+                        placeholder="Start typing a city name..."
+                        autocomplete="off"
+                        aria-describedby="city-help"
+                        aria-autocomplete="list"
+                        role="combobox"
+                        aria-expanded="false"
+                    >
+                    <datalist id="cities-list" role="listbox"></datalist>
+                    <span id="city-help" class="help-text">Select from 100 major US cities</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="zipcode">Or enter ZIP Code:</label>
                     <input
                         type="text"
                         id="zipcode"
@@ -32,20 +56,18 @@
                         maxlength="5"
                         aria-describedby="zipcode-help"
                     >
-                    <span id="zipcode-help" class="help-text">Enter a 5-digit US ZIP code</span>
+                    <span id="zipcode-help" class="help-text">Enter a 5-digit US ZIP code to override</span>
                 </div>
 
                 <button
                     type="button"
-                    id="use-location-btn"
+                    id="use-precise-location-btn"
                     class="btn btn-secondary"
-                    aria-label="Use my current location to detect planting zone"
+                    aria-label="Use precise GPS location (requires permission)"
                 >
-                    📍 Use Current Location
+                    🎯 Use Precise Location
                 </button>
             </div>
-
-            <div id="zone-result" class="zone-result" role="status" aria-live="polite"></div>
 
             <button
                 type="button"

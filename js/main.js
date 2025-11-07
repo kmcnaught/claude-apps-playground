@@ -10,6 +10,7 @@ class PlantingCalendarApp {
         this.calendarService = new CalendarService();
         this.currentZone = null;
         this.availableCrops = [];
+        this.citiesData = null;
 
         this.init();
     }
@@ -19,17 +20,73 @@ class PlantingCalendarApp {
         await Promise.all([
             this.locationService.loadZonesData(),
             this.cropService.loadCropsData(),
-            this.calendarService.loadScheduleData()
+            this.calendarService.loadScheduleData(),
+            this.loadCitiesData()
         ]);
 
+        this.populateCitiesList();
         this.setupEventListeners();
+
+        // Auto-detect location on page load
+        this.autoDetectLocation();
+    }
+
+    async loadCitiesData() {
+        try {
+            const response = await fetch('data/cities.json');
+            this.citiesData = await response.json();
+            return this.citiesData;
+        } catch (error) {
+            console.error('Error loading cities data:', error);
+            return null;
+        }
+    }
+
+    populateCitiesList() {
+        if (!this.citiesData) return;
+
+        const datalist = document.getElementById('cities-list');
+        this.citiesData.cities.forEach(city => {
+            const option = document.createElement('option');
+            option.value = city.name;
+            option.setAttribute('data-zip', city.zip);
+            datalist.appendChild(option);
+        });
+    }
+
+    async autoDetectLocation() {
+        const statusDiv = document.getElementById('auto-detect-status');
+
+        try {
+            const zoneInfo = await this.locationService.detectZoneFromIP();
+            this.currentZone = zoneInfo;
+            this.displayZoneInfo(zoneInfo);
+
+            // Hide status, show result
+            statusDiv.classList.add('hidden');
+            document.getElementById('confirm-location-btn').disabled = false;
+        } catch (error) {
+            statusDiv.innerHTML = '⚠️ Could not auto-detect location. Please enter your ZIP code.';
+            statusDiv.style.backgroundColor = '#fff3cd';
+            statusDiv.style.color = '#856404';
+        }
     }
 
     setupEventListeners() {
         // Location section
+        const citySelect = document.getElementById('city-select');
         const zipcodeInput = document.getElementById('zipcode');
-        const useLocationBtn = document.getElementById('use-location-btn');
+        const usePreciseLocationBtn = document.getElementById('use-precise-location-btn');
         const confirmLocationBtn = document.getElementById('confirm-location-btn');
+
+        citySelect.addEventListener('change', (e) => {
+            this.handleCitySelection(e.target.value);
+        });
+
+        citySelect.addEventListener('input', (e) => {
+            // Update ARIA expanded state
+            e.target.setAttribute('aria-expanded', e.target.value.length > 0);
+        });
 
         zipcodeInput.addEventListener('input', (e) => {
             const zipcode = e.target.value;
@@ -38,8 +95,8 @@ class PlantingCalendarApp {
             }
         });
 
-        useLocationBtn.addEventListener('click', () => {
-            this.handleUseLocation();
+        usePreciseLocationBtn.addEventListener('click', () => {
+            this.handleUsePreciseLocation();
         });
 
         confirmLocationBtn.addEventListener('click', () => {
@@ -93,6 +150,17 @@ class PlantingCalendarApp {
         });
     }
 
+    handleCitySelection(cityName) {
+        if (!this.citiesData || !cityName) return;
+
+        const city = this.citiesData.cities.find(c => c.name === cityName);
+        if (city) {
+            // Populate ZIP code field and trigger zone detection
+            document.getElementById('zipcode').value = city.zip;
+            this.handleZipcodeEntry(city.zip);
+        }
+    }
+
     async handleZipcodeEntry(zipcode) {
         try {
             const zoneInfo = await this.locationService.getZoneByZipCode(zipcode);
@@ -104,14 +172,14 @@ class PlantingCalendarApp {
         }
     }
 
-    async handleUseLocation() {
-        const btn = document.getElementById('use-location-btn');
+    async handleUsePreciseLocation() {
+        const btn = document.getElementById('use-precise-location-btn');
         const originalText = btn.innerHTML;
-        btn.innerHTML = '<span class="loading"></span> Getting location...';
+        btn.innerHTML = '<span class="loading"></span> Getting precise location...';
         btn.disabled = true;
 
         try {
-            const zoneInfo = await this.locationService.detectZoneFromLocation();
+            const zoneInfo = await this.locationService.detectZoneFromPreciseLocation();
             this.currentZone = zoneInfo;
             this.displayZoneInfo(zoneInfo);
             document.getElementById('zipcode').value = zoneInfo.zipCode;
@@ -128,9 +196,30 @@ class PlantingCalendarApp {
         const zoneResult = document.getElementById('zone-result');
         const zoneDetails = this.locationService.getZoneDetails(zoneInfo.zone);
 
+        // Determine location description based on detection method
+        let locationDesc = '';
+        if (zoneInfo.city && zoneInfo.region) {
+            locationDesc = `${zoneInfo.city}, ${zoneInfo.region}`;
+        } else if (zoneInfo.zipCode) {
+            locationDesc = `ZIP ${zoneInfo.zipCode}`;
+        }
+
+        // Determine accuracy indicator
+        let accuracy = '';
+        if (zoneInfo.method === 'gps') {
+            accuracy = '✓ Precise location';
+        } else if (zoneInfo.method === 'ip') {
+            accuracy = '~ From your IP address';
+        } else if (zoneInfo.method === 'timezone') {
+            accuracy = '~ Approximate from timezone';
+        } else if (zoneInfo.isEstimate) {
+            accuracy = '~ Estimated';
+        }
+
         let html = `
             <strong>Your Planting Zone: ${zoneInfo.fullZone}</strong>
-            ${zoneInfo.isEstimate ? ' (estimated)' : ''}
+            ${locationDesc ? `<br><small>${locationDesc}</small>` : ''}
+            ${accuracy ? `<br><small style="opacity: 0.8;">${accuracy}</small>` : ''}
         `;
 
         if (zoneDetails) {
@@ -144,6 +233,7 @@ class PlantingCalendarApp {
 
         zoneResult.innerHTML = html;
         zoneResult.classList.remove('error');
+        zoneResult.classList.add('success');
     }
 
     showError(message) {

@@ -183,6 +183,23 @@ input[type="search"]:focus {
 }
 
 /* Location Section */
+.auto-detect-status {
+    padding: var(--spacing-md);
+    background-color: var(--color-background);
+    border: 2px solid var(--color-border);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--color-text-muted);
+}
+
+.auto-detect-status:empty,
+.auto-detect-status.hidden {
+    display: none;
+}
+
 .location-inputs {
     display: flex;
     flex-direction: column;
@@ -205,6 +222,10 @@ input[type="search"]:focus {
 
 .zone-result.error {
     background-color: var(--color-error);
+}
+
+.zone-result.success {
+    background-color: var(--color-success);
 }
 
 /* Crop Selection */

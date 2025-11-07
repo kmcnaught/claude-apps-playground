@@ -98,11 +98,60 @@ class LocationService {
         }
     }
 
-    async detectZoneFromLocation() {
+    async detectZoneFromIP() {
+        try {
+            // Try ipapi.co first (simple and reliable)
+            const response = await fetch('https://ipapi.co/json/');
+            const data = await response.json();
+
+            if (data.postal) {
+                const zoneInfo = await this.getZoneByZipCode(data.postal);
+                zoneInfo.city = data.city;
+                zoneInfo.region = data.region;
+                zoneInfo.method = 'ip';
+                this.currentZone = zoneInfo;
+                return zoneInfo;
+            }
+
+            throw new Error('Could not determine location from IP');
+        } catch (error) {
+            console.error('IP geolocation error:', error);
+            // Fallback to timezone-based approximation
+            return this.detectZoneFromTimezone();
+        }
+    }
+
+    detectZoneFromTimezone() {
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+        // Map common timezones to approximate ZIP codes
+        const timezoneToZip = {
+            'America/New_York': '10001',
+            'America/Chicago': '60601',
+            'America/Denver': '80201',
+            'America/Los_Angeles': '90001',
+            'America/Phoenix': '85001',
+            'America/Detroit': '48201',
+            'America/Anchorage': '99501',
+            'Pacific/Honolulu': '96801',
+        };
+
+        const approximateZip = timezoneToZip[timezone] || '20001'; // Default to DC
+
+        return this.getZoneByZipCode(approximateZip).then(zoneInfo => {
+            zoneInfo.method = 'timezone';
+            zoneInfo.isEstimate = true;
+            this.currentZone = zoneInfo;
+            return zoneInfo;
+        });
+    }
+
+    async detectZoneFromPreciseLocation() {
         try {
             const location = await this.getCurrentLocation();
             const zipCode = await this.reverseGeocode(location.latitude, location.longitude);
             const zoneInfo = await this.getZoneByZipCode(zipCode);
+            zoneInfo.method = 'gps';
             this.currentZone = zoneInfo;
             return zoneInfo;
         } catch (error) {
